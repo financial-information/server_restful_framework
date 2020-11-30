@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     # 项目app
     'company_database',
     'users',
+    # 安全过滤
+    'coffee',
 ]
 # django自带用户表的扩展
 AUTH_USER_MODEL="users.UserProfile"
@@ -59,7 +61,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'coffee.middleware.loginrequired.LoginRequiredMiddleware',
 ]
+# 不用登录直接访问接口
+OPEN_URLS = ['/users/login/',]
+# 默认接口
+LOGIN_URL = "../../users/login"
 
 ROOT_URLCONF = 'server_restful_framework.urls'
 
@@ -140,10 +147,25 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # REST_FRAMEWORK 分页 10个为一页
 REST_FRAMEWORK = {
-# 过滤器
+    # 过滤器
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     #文档接口库
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     'PAGE_SIZE': 10,
+    # jwt用户验证 token
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+import datetime
+JWT_AUTH = {
+    # token的有效期
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
 }

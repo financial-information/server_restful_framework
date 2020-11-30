@@ -27,10 +27,11 @@ from company_database.models import CompanyBasicInformation,CompanyFinanceData
 from company_database.serializers import CompanyBasicInformationSerializer,CompanyFinanceDataSerializer
 # 引入过滤器
 from company_database.filters import CompanyBasicInformationFilter
-# 权限
+
 
 # rest_framework cbv 查询方式
 # 公司基本信息视图集
+
 class CompanyBasicInformationViewSet(viewsets.ModelViewSet):
     # lookup_field = "credit_code"
     # 用于详细查询的字段，当下为股票的名字展示股票的内容
@@ -244,7 +245,7 @@ def saveFinanceData(file_name):
 
 	
 # 区分板块：stock_type 和 industry_type
-def disPlates(file_name,index):
+def disStockPlates(file_name):
 	s_list_data = readXls(file_name)
 	company_all_data = CompanyBasicInformation.objects.all()
 	for item in company_all_data:
@@ -254,37 +255,57 @@ def disPlates(file_name,index):
 				judge = 1
 				break
 		c = CompanyBasicInformation.objects.filter(stock_code = item.stock_code)
-		if(judge == 1 and index != -1):
-			c.update(industry_type = INDUSTRY_NMAE[index])
+		now = c.first().stock_type
+		if judge == 1: 
+			c.update(stock_type = now + "1")
 		else:
-			now = c.first().stock_type
-			if judge == 1: 
-				c.update(stock_type = now + "1")
-			else:
-				c.update(stock_type = now + "0")
+			c.update(stock_type = now + "0")
 
 
 # 初始化stock_code 和 industry_type 字段
-def initData():
-	company_all_data = models.CompanyBasicInformation.objects.all()
+def initStockData():
+	company_all_data = CompanyBasicInformation.objects.all()
 	for item in company_all_data:
-		c = models.CompanyBasicInformation.objects.filter(stock_code = item.stock_code)
+		c = CompanyBasicInformation.objects.filter(stock_code = item.stock_code)
 		c.update(stock_type = '')# 将stock_code置为空
-		c.update(industry_type ='其他')# 将industry_type置为空
 
 # 初始化，然后区分模块
-def fillType(stock_list,industry_list):
+def fillStockType(stock_list):
 	#初始化
-	initData()
+	initStockData()
 	#股票区分
 	for url in stock_list:
-		disPlates(url,-1)
+		disStockPlates(url)
 
+# 区分板块：stock_type 和 industry_type
+def disIndustryPlates(file_name,index):
+	s_list_data = readXls(file_name)
+	company_all_data = CompanyBasicInformation.objects.all()
+	for item in company_all_data:
+		judge = 0
+		for ld in s_list_data:
+			if(item.stock_code == ld[0]):
+				judge = 1
+				break
+		if judge == 1: 
+			c = CompanyBasicInformation.objects.filter(stock_code = item.stock_code)
+			c.update(industry_type = INDUSTRY_NMAE[index])
+
+# 初始化stock_code 和 industry_type 字段
+def initIndustryData():
+	company_all_data = CompanyBasicInformation.objects.all()
+	for item in company_all_data:
+		c = CompanyBasicInformation.objects.filter(stock_code = item.stock_code)
+		c.update(industry_type ='其他')# 将industry_type置为空
+
+def fillIndustryType(industry_list):
+	#初始化
+	initIndustryData()
 	#取模块名
 	#行业区分
 	index = 0
 	for url in industry_list:
-		disPlates(url,index)
+		disIndustryPlates(url,index)
 		index = index + 1
 
 
@@ -295,7 +316,8 @@ def saveStaticData(request):
 	# saveCompanyData(COMPANY_BASIC_DATA_URL)
 	# # 存年报
 	# saveFinanceData(FINANCE_DTAT_URL)
-	# # 存股票类型和行业类型
-	# fillType(STOCK_URL_LIST,INDUSTRY_URL_LIST)
-	
+	# 存股票类型
+	# fillStockType(STOCK_URL_LIST)
+	# 存行业类型
+	fillIndustryType(INDUSTRY_URL_LIST)
 	return HttpResponse("success!!!")

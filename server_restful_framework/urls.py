@@ -15,10 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+# jwt_token验证
+from rest_framework_jwt.views import obtain_jwt_token
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
+    path('api-jwt-auth/', obtain_jwt_token, name='authorizations'),
     path('company_database/', include('company_database.urls')),
     path('users/', include('users.urls'))
 ]

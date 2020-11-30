@@ -15,22 +15,27 @@ from django.contrib.auth import login
 
 
 def addUser(request):
-	if request.method == "GET":
-		username = request.GET['username']
-		password = request.GET['password']
-		phone = request.GET['phone']
+	if request.method == "POST":
+		username = request.POST['username']
+		password = request.POST['password']
+		phone = request.POST['phone']
 		user = User.objects.create_user(username,password,phone)
 		user.save()
 	return HttpResponse("success!!!")
 
 
 def login(request):
-	username = request.GET['username']
-	password = request.GET['password']
-	user = authenticate(username=username, password=password)
-	if user is not None:
-	    if user.is_active:
-	        login(request, user)
-	        return HttpResponse("success!!!")
-	else:
-		return HttpResponse("fail!!!")
+	if request.method == "GET":
+		return HttpResponse("请登录")
+	if request.method == "POST":
+		username = request.POST['username']
+		password = request.POST['password']
+		user = authenticate(username=username, password=password)
+		if user is not None:
+		    if user.is_active:
+		        login(request, user)
+		        return HttpResponse("success!!!")
+		else:
+			return HttpResponse("fail!!!")
+
+

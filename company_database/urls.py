@@ -14,10 +14,11 @@ from company_database.views import *
 from company_database import views
 # rest framework 文档接口
 from rest_framework.documentation import include_docs_urls
-
+# 权限
+from django.contrib.auth.decorators import login_required
 
 router = DefaultRouter()
-router.register(r'company_basic_data', CompanyBasicInformationViewSet, basename="company_basic_data")
+router.register(r'company_basic_data',CompanyBasicInformationViewSet, basename="company_basic_data")
 router.register(r'company_finance_data', CompanyFinanceDataViewSet, basename="company_finance_data")
 urlpatterns =[
 	path('save_static_data/',views.saveStaticData),
