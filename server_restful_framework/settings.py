@@ -39,8 +39,16 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 引入这个框架之后，会自带api接口，让开发者再后台进行可视化编辑
     'rest_framework',
+    # 引入该api解决跨域问题
+    'corsheaders',
+    # django 过滤器
+    'django_filters',
+    # 项目app
     'company_database',
+    'users',
 ]
+# django自带用户表的扩展
+AUTH_USER_MODEL="users.UserProfile"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -80,9 +88,9 @@ WSGI_APPLICATION = 'server_restful_framework.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # 数据库引擎
-        'NAME': '7starts_database', # 数据库名
-        'USER': 'root', # 账号
-        'PASSWORD': '123456', # 密码
+        'NAME':'sevenstar',
+        'USER':'root',
+        'PASSWORD':'yal123456',
     }
 }
 
@@ -135,5 +143,7 @@ REST_FRAMEWORK = {
 # 过滤器
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    #文档接口库
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     'PAGE_SIZE': 10,
 }
