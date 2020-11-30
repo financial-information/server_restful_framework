@@ -6,10 +6,8 @@ class LoginRequiredMiddleware:
     self.get_response = get_response
     self.login_url = settings.LOGIN_URL
     self.open_urls = [self.login_url] + getattr(settings, 'OPEN_URLS', [])
-    print(self.open_urls)
  
   def __call__(self, request):
     if not request.user.is_authenticated and request.path_info not in self.open_urls:
-    	print(request.path_info)
     	return redirect(self.login_url + '?next=' + request.path)
     return self.get_response(request)
