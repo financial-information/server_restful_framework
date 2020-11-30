@@ -11,11 +11,19 @@ from rest_framework.schemas import get_schema_view
 
 from company_database.views import * 
 
+from company_database import views
+# rest framework 文档接口
+from rest_framework.documentation import include_docs_urls
 
 
 router = DefaultRouter()
 router.register(r'company_basic_data', CompanyBasicInformationViewSet, basename="company_basic_data")
-urlpatterns = router.urls
+router.register(r'company_finance_data', CompanyFinanceDataViewSet, basename="company_finance_data")
+urlpatterns =[
+	path('save_static_data/',views.saveStaticData),
+	path('delete_company_data/',views.DeleteCompanyInfo),
+	path('docs/', include_docs_urls(title='说明文档')),
+]
 
-
+urlpatterns += router.urls
 
