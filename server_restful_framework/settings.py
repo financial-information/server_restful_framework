@@ -56,7 +56,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -64,7 +64,7 @@ MIDDLEWARE = [
     'coffee.middleware.loginrequired.LoginRequiredMiddleware',
 ]
 # 不用登录直接访问接口
-OPEN_URLS = ['/users/login/',]
+OPEN_URLS = ['/users/login/','api-jwt-auth/']
 # 默认接口
 LOGIN_URL = "../../users/login"
 
