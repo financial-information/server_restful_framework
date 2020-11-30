@@ -12,6 +12,7 @@ from rest_framework.schemas import get_schema_view
 from company_database.views import * 
 
 
+# from rest_framework.documentation import include_docs_urls
 
 router = DefaultRouter()
 router.register(r'company_basic_data', CompanyBasicInformationViewSet, basename="company_basic_data")
