@@ -21,12 +21,12 @@ def addUser(request):
 		phone = request.POST['phone']
 		user = User.objects.create_user(username,password,phone)
 		user.save()
-	return HttpResponse("success!!!")
+	return HttpResponse(True)
 
 
-def login(request):
+def userLogin(request):
 	if request.method == "GET":
-		return HttpResponse("请登录")
+		return HttpResponse("/home")
 	if request.method == "POST":
 		username = request.POST['username']
 		password = request.POST['password']
@@ -34,8 +34,8 @@ def login(request):
 		if user is not None:
 		    if user.is_active:
 		        login(request, user)
-		        return HttpResponse("success!!!")
+		        return HttpResponse(True)
 		else:
-			return HttpResponse("fail!!!")
+			return HttpResponse(False)
 
 

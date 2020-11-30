@@ -308,16 +308,25 @@ def fillIndustryType(industry_list):
 		disIndustryPlates(url,index)
 		index = index + 1
 
-
 # 存储静态数据
-def saveStaticData(request):
+# 存出公司基本信息
+def saveCompanyBasicData(request):
 	# 注：已经进行数据存储可以不用重复存入数据库，需要那一部分则调用哪一部分
 	# # 存公司基本信息
-	# saveCompanyData(COMPANY_BASIC_DATA_URL)
+	saveCompanyData(COMPANY_BASIC_DATA_URL)
+	return HttpResponse("success!!!")
+
+def saveCompanyFinanceData(request):
 	# # 存年报
-	# saveFinanceData(FINANCE_DTAT_URL)
+	saveFinanceData(FINANCE_DTAT_URL)
+	return HttpResponse("success!!!")
+
+def saveStockType(request):
 	# 存股票类型
-	# fillStockType(STOCK_URL_LIST)
+	fillStockType(STOCK_URL_LIST)
+	return HttpResponse("success!!!")
+
+def saveIndustryType(request):
 	# 存行业类型
 	fillIndustryType(INDUSTRY_URL_LIST)
 	return HttpResponse("success!!!")
