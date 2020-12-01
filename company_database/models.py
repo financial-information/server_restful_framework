@@ -5,7 +5,7 @@ from django.db import models
 
 # 公司企业数据
 class CompanyBasicInformation(models.Model):
-  id = models.IntegerField(primary_key = True)
+  id = models.AutoField(primary_key = True,)
   stock_code = models.CharField(max_length = 20)
   stock_name = models.CharField(max_length = 20)
   credit_code = models.CharField(max_length = 20)

@@ -61,7 +61,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'coffee.middleware.loginrequired.LoginRequiredMiddleware',
+    # 'coffee.middleware.loginrequired.LoginRequiredMiddleware',
 ]
 # 不用登录直接访问接口
 OPEN_URLS = ['/users/login/','api-jwt-auth/']
@@ -96,8 +96,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # 数据库引擎
         'NAME':'sevenstar',
-        'USER':'root',
+        'USER':'sevenstar',
         'PASSWORD':'yal123456',
+        'HOST':'47.111.29.26',
+        'PORT':3306,
     }
 }
 
