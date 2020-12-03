@@ -61,10 +61,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    # 'coffee.middleware.loginrequired.LoginRequiredMiddleware',
+    'coffee.middleware.loginrequired.LoginRequiredMiddleware',
 ]
 # 不用登录直接访问接口
-OPEN_URLS = ['/users/login/','api-jwt-auth/']
+OPEN_URLS = ['/users/login/','/api-jwt-auth/','/users/register/']
 # 默认接口
 LOGIN_URL = "../../users/login"
 
@@ -156,18 +156,18 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
     'PAGE_SIZE': 10,
     # jwt用户验证 token
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
-    ),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ),
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+    #     'rest_framework.authentication.SessionAuthentication',
+    #     'rest_framework.authentication.BasicAuthentication',
+    # ),
 }
-import datetime
-JWT_AUTH = {
-    # token的有效期
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
-    'JWT_AUTH_HEADER_PREFIX': 'JWT',
-}
+# import datetime
+# JWT_AUTH = {
+#     # token的有效期
+#     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1),
+#     'JWT_AUTH_HEADER_PREFIX': 'JWT',
+# }

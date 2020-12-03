@@ -11,22 +11,29 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate
 # 进行登录（插入session）
 from django.contrib.auth import login
+# json格式
+import json
 
 
 
 def addUser(request):
-	if request.method == "POST":
-		username = request.POST['username']
-		password = request.POST['password']
-		phone = request.POST['phone']
+	if request.method == "GET":
+		username = request.GET['username']
+		password = request.GET['password']
+		phone = request.GET['phone']
 		user = User.objects.create_user(username,password,phone)
 		user.save()
-	return HttpResponse(True)
+		data = {'status':True,'message':'注册成功成功'}
+		result = json.dumps(data)
+	return HttpResponse(result)
 
 
 def userLogin(request):
+	result = ""
 	if request.method == "GET":
-		return HttpResponse("/home")
+		data = {'url':'/home'}
+		result = json.dumps(data)
+		return HttpResponse(result)
 	if request.method == "POST":
 		username = request.POST['username']
 		password = request.POST['password']
@@ -34,8 +41,13 @@ def userLogin(request):
 		if user is not None:
 		    if user.is_active:
 		        login(request, user)
-		        return HttpResponse(True)
+		        user_session = request.session.session_key
+		        data = {'status':True,'message':'登录成功','session':user_session}
+		        result = json.dumps(data)
+		        return HttpResponse(result)
 		else:
-			return HttpResponse(False)
+			data = {'status':False,'message':'登录失败'}
+			result = json.dumps(data)
+			return HttpResponse(result)
 
 
