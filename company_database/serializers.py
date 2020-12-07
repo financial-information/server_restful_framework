@@ -10,7 +10,7 @@ class CompanyBasicInformationSerializer(serializers.ModelSerializer):
         model = CompanyBasicInformation
         fields = ('id', 'stock_code', 'stock_name', 'credit_code', 'company_name', 'found_date', 'business_code', 
           'registered_capital', 'legal_representative', 'phone', 'registered_address', 'website', 'profile', 'stock_type', 'industry_type','business_scope', 'listed',
-          'deteled')
+          'deleted')
 
 
 

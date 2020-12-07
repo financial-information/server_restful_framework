@@ -61,7 +61,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'coffee.middleware.loginrequired.LoginRequiredMiddleware',
+    # 'coffee.middleware.loginrequired.LoginRequiredMiddleware',
 ]
 # 不用登录直接访问接口
 OPEN_URLS = ['/users/login/','/api-jwt-auth/','/users/register/']

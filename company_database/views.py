@@ -47,8 +47,13 @@ class CompanyBasicInformationViewSet(viewsets.ModelViewSet):
 
 # 年报视图集
 class CompanyFinanceDataViewSet(viewsets.ModelViewSet):
-    queryset = CompanyFinanceData.objects.all()
-    serializer_class = CompanyFinanceDataSerializer
+	# 用于详细查询的字段，当下为股票的名字展示股票的内容
+	queryset = CompanyFinanceData.objects.all()
+	serializer_class = CompanyFinanceDataSerializer
+	# 支持搜索和过滤，写在一起
+	filter_backends = (filters.SearchFilter, DjangoFilterBackend)
+	# 搜索的关键字从这些字段取
+	search_fields = ('id','stock_code')
 
 
 class DeleteCompanyInfo(generics.UpdateAPIView):
