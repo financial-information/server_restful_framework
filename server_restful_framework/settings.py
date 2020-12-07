@@ -61,10 +61,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    'coffee.middleware.loginrequired.LoginRequiredMiddleware',
+    # 'coffee.middleware.loginrequired.LoginRequiredMiddleware',
 ]
 # 不用登录直接访问接口
-OPEN_URLS = ['/users/login/','/api-jwt-auth/','/users/register/']
+OPEN_URLS = ['/users/login/','/api-jwt-auth/','/users/register/',
+            '/company_database/company_basic_data/',
+            '/company_database/company_finance_data/',]
 # 默认接口
 LOGIN_URL = "../../users/login"
 
@@ -95,11 +97,10 @@ WSGI_APPLICATION = 'server_restful_framework.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # 数据库引擎
-        'NAME':'sevenstar',
-        'USER':'sevenstar',
-        'PASSWORD':'yal123456',
-        'HOST':'47.111.29.26',
-        'PORT':3306,
+        'NAME':'sevenstars1',
+        'USER':'root',
+        'PASSWORD':'',
+        
     }
 }
 
