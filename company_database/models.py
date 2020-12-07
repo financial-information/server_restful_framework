@@ -22,7 +22,7 @@ class CompanyBasicInformation(models.Model):
   industry_type = models.CharField(max_length = 20,null=True)
   business_scope = models.TextField()
   listed = models.IntegerField(default= 0)
-  deteled = models.IntegerField(default= 0)
+  deleted = models.IntegerField(default= 0)
 
   class Meta:
         ordering = ('id', 'credit_code')
@@ -57,6 +57,7 @@ class CompanyFinanceData(models.Model):
   forecast_cash_flow = models.CharField(max_length = 50,null=True)
   forecast_total_profit = models.CharField(max_length = 50,null=True)
   forecast_operating_profit = models.CharField(max_length = 50,null=True)
+  deleted = models.IntegerField(default= 0)
 
   class Meta:
       ordering = ('id','stock_code')
