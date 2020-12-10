@@ -2,14 +2,14 @@ from django.conf.urls import url, include
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 
-# , api_root
+# api_root
 from rest_framework import renderers
 # 路由
 from rest_framework.routers import DefaultRouter
 
 from rest_framework.schemas import get_schema_view
 
-from company_database.views import * 
+from company_database.views import *
 
 from company_database import views
 # rest framework 文档接口
@@ -25,7 +25,6 @@ urlpatterns =[
 	path('saveCompanyFinanceData/',views.saveCompanyFinanceData),
 	path('saveStockType/',views.saveStockType),
 	path('saveIndustryType/',views.saveIndustryType),
-	path('delete_company_data/',views.DeleteCompanyInfo),
 	path('docs/', include_docs_urls(title='说明文档')),
 ]
 
