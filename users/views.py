@@ -18,12 +18,15 @@ from rest_framework import mixins, generics, permissions, viewsets, renderers, f
 # 引入序列
 from users.serializers import UserProfileSerializer,UserHistorySerializer,UserCollectionSerializer
 # 引入模型
-from users.models import UserProfile,UserHistory,UserCollection
 # 引入数据库连接
 from django.db import connection
 # 过滤器模块和自定义过滤类
 from django_filters.rest_framework import DjangoFilterBackend
 from users.filters import UserHistoryFilter,UserCollectionFilter
+# 分页
+from rest_framework.pagination import LimitOffsetPagination
+# 引入模型
+from users.models import UserProfile,UserCollection,UserHistory
 
 # 分页
 from rest_framework.pagination import LimitOffsetPagination
@@ -118,27 +121,58 @@ def recordCollection(request):
 
 
 def getHotCompanyInfo(request):
-	data = "none"
-	
 	module_type = request.POST['module_type']
 	size = request.POST['size']
 	cursor = connection.cursor()
-	if(module_type == '1'):
-		try:			
-			cursor.execute("SELECT COUNT(*) AS total_visits,history_module_id FROM users_userhistory WHERE history_module_type =%s GROUP BY history_module_id ORDER BY total_visits DESC",(module_type,))
+	if(module_type == "1"):
+		try:	
+			data = []		
+			cursor.execute("SELECT COUNT(*) AS total_visits,history_module_id FROM users_userhistory WHERE history_module_type =%s GROUP BY history_module_id ORDER BY create_time,total_visits DESC",(module_type,))
 			rows = cursor.fetchmany(int(size))
-			data = []
 			for row in rows:
 				drow = {
 				'history_module_id':row[1],
 				'total_visits':row[0]
 				}
 				data.append(drow)
-			result = {'status':True,'data':data}
+			datas = {'status':True,'data':data}
+			print(datas)
 		except BaseException as reason:
-			result = {'status':True,'message':reason}
+			datas = {'status':False}
+			print(reason)
 	else:
-		result = None
+		datas = None
+	results = json.dumps(datas)
+	return HttpResponse(results)
 
+
+def deleteHistory(request):
+	deleteArray = request.POST['deleteArray']
+	cursor = connection.cursor()
+	for item in deleteArray:
+		try:
+			cursor.execute("UPDATE users_userhistory set deleted = %s WHERE id = %s",(1,item,))
+			result = {"status":True}
+		except BaseException as reason:
+			result = {'status':False,"messgae":reason}
+			break
+	if result.get("status") == True:
+		result = {"status":True,"message":"删除成功"}
 	result = json.dumps(result)
 	return HttpResponse(result)
+
+def deleteCollection(request):
+	deleteArray = request.POST['deleteArray']
+	cursor = connection.cursor()
+	for item in deleteArray:
+		try:
+			cursor.execute("UPDATE users_usercollection set deleted = %s WHERE id = %s",(1,item,))
+			result = {"status":True}
+		except BaseException as reason:
+			result = {'status':False,"messgae":reason}
+			break
+	if result.get("status") == True:
+		result = {"status":True,"message":"删除成功"}
+	result = json.dumps(result)
+	return HttpResponse(result)
+

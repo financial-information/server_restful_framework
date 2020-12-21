@@ -17,5 +17,7 @@ urlpatterns = [
     path('recordHistory/', views.recordHistory),
     path('recordCollection/', views.recordCollection),
     path('getHotCompanyInfo/', views.getHotCompanyInfo),
+    path('deleteHistory/',views.deleteHistory),
+    path('deleteCollection/',views.deleteCollection),
 ]
 urlpatterns += router.urls
