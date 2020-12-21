@@ -25,21 +25,30 @@ from django.db import connection
 from django_filters.rest_framework import DjangoFilterBackend
 from users.filters import UserHistoryFilter,UserCollectionFilter
 
+# 分页
+from rest_framework.pagination import LimitOffsetPagination
+
 class UserProfileSerializerViewSet(viewsets.ModelViewSet):
 	queryset = UserProfile.objects.all()
 	serializer_class = UserProfileSerializer
+	# 分页
+	pagination_class = LimitOffsetPagination
 
 
 class UserHistoryViewSet(viewsets.ModelViewSet):
 	queryset = UserHistory.objects.all()
 	serializer_class = UserHistorySerializer
 	filter_class = UserHistoryFilter
+	# 分页
+	pagination_class = LimitOffsetPagination
 
 
 class UserCollectionViewSet(viewsets.ModelViewSet):
 	queryset = UserCollection.objects.all()
 	serializer_class = UserCollectionSerializer
 	filter_class = UserCollectionFilter
+	# 分页
+	pagination_class = LimitOffsetPagination
 
 
 def addUser(request):
@@ -110,22 +119,26 @@ def recordCollection(request):
 
 def getHotCompanyInfo(request):
 	data = "none"
+	
 	module_type = request.POST['module_type']
 	size = request.POST['size']
 	cursor = connection.cursor()
-	if(module_type == 1):
+	if(module_type == '1'):
 		try:			
-			cursor.execute("SELECT COUNT(*) AS total_visits,history_module_id FROM users_userhistory WHERE history_module_type =%s GROUP BY history_module_id ORDER BY create_time,total_visits DESC",(module_type,))
-			rows = cursor.fetchmany(size)
+			cursor.execute("SELECT COUNT(*) AS total_visits,history_module_id FROM users_userhistory WHERE history_module_type =%s GROUP BY history_module_id ORDER BY total_visits DESC",(module_type,))
+			rows = cursor.fetchmany(int(size))
 			data = []
 			for row in rows:
 				drow = {
-				'history_module_id':row[0],
-				'total_visits':row[1]
+				'history_module_id':row[1],
+				'total_visits':row[0]
 				}
 				data.append(drow)
 			result = {'status':True,'data':data}
 		except BaseException as reason:
 			result = {'status':True,'message':reason}
+	else:
+		result = None
+
 	result = json.dumps(result)
 	return HttpResponse(result)

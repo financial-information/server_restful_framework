@@ -9,6 +9,7 @@ class UserHistoryFilter(filters.FilterSet):
 	user_phone = filters.CharFilter(field_name="user_phone")
 	history_module_type = filters.CharFilter(field_name="history_module_type")
 	history_module_id = filters.CharFilter(field_name="history_module_id")
+	deleted = filters.CharFilter(field_name="deleted")
 
 
 class UserCollectionFilter(filters.FilterSet):
@@ -16,3 +17,6 @@ class UserCollectionFilter(filters.FilterSet):
 	user_phone = filters.CharFilter(field_name="user_phone")
 	collection_module_type = filters.CharFilter(field_name="history_module_type")
 	collection_module_id = filters.CharFilter(field_name="history_module_id")
+	deleted = filters.CharFilter(field_name="deleted")
+
+

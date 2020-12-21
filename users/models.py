@@ -61,8 +61,7 @@ class UserHistory(models.Model):
 	create_time = models.DateTimeField(auto_now = True)
 	deleted = models.IntegerField(default= 0)
 	class Meta:
-		ordering = ('id', 'create_time')
-
+		ordering = ('user_phone','-create_time')
 
 class UserCollection(models.Model):
 	id =models.AutoField(primary_key = True)
@@ -72,4 +71,4 @@ class UserCollection(models.Model):
 	create_time  = models.DateTimeField(auto_now = True)
 	deleted = models.IntegerField(default= 0)
 	class Meta:
-		ordering = ('id', 'create_time')
+		ordering = ('user_phone','-create_time')

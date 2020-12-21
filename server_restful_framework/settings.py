@@ -97,11 +97,11 @@ WSGI_APPLICATION = 'server_restful_framework.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # 数据库引擎
-        'HOST':'47.111.29.26',
+        'HOST':'localhost',
         'PORT':3306,
-        'NAME':'sevenstar',
-        'USER':'sevenstar',
-        'PASSWORD':'yal123456',
+        'NAME':'sevenstars1',
+        'USER':'root',
+        'PASSWORD':'',
 
     }
 }
@@ -131,7 +131,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
