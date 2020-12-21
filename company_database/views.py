@@ -27,47 +27,35 @@ from company_database.models import CompanyBasicInformation,CompanyFinanceData
 from company_database.serializers import CompanyBasicInformationSerializer,CompanyFinanceDataSerializer
 # 引入过滤器
 from company_database.filters import CompanyBasicInformationFilter
+# 分页
+from rest_framework.pagination import LimitOffsetPagination
 
 
 # rest_framework cbv 查询方式
 # 公司基本信息视图集
 
-class CompanyBasicInformationViewSet(viewsets.ModelViewSet):
-    # lookup_field = "credit_code"
+class CompanyBasicInformationViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     # 用于详细查询的字段，当下为股票的名字展示股票的内容
     # lookup_field = "stock_name"
     queryset = CompanyBasicInformation.objects.all()
     serializer_class = CompanyBasicInformationSerializer
     filter_class = CompanyBasicInformationFilter
-    # # 支持搜索和过滤，写在一起
-    # filter_backends = (filters.SearchFilter, DjangoFilterBackend)
-    # # 搜索的关键字从这些字段取
-    # search_fields = ('company_name', 'stock_code', 'industry_type')
+    # 分页
+    pagination_class = LimitOffsetPagination
 
 
 # 年报视图集
 class CompanyFinanceDataViewSet(viewsets.ModelViewSet):
-    queryset = CompanyFinanceData.objects.all()
-    serializer_class = CompanyFinanceDataSerializer
+	# 用于详细查询的字段，当下为股票的名字展示股票的内容
+	queryset = CompanyFinanceData.objects.all()
+	serializer_class = CompanyFinanceDataSerializer
+	pagination_class = LimitOffsetPagination
+	# 支持搜索和过滤，写在一起
+	filter_backends = (filters.SearchFilter, DjangoFilterBackend)
+	# 搜索的关键字从这些字段取
+	search_fields = ('id','stock_code')
 
 
-class DeleteCompanyInfo(generics.UpdateAPIView):
-    queryset = CompanyBasicInformation.objects.all()
-    serializer_class = CompanyBasicInformationSerializer
-  #   def update(self, request, *args, **kwargs):
-		# print(11)
-        # instance = self.get_object()
-        # print(111)
-        # instance.deleted = request.data.get("deteled")
-        # instance.save()
-
-        # serializer = self.get_serializer(instance)
-        # serializer.is_valid(raise_exception=True)
-        # self.perform_update(serializer)
-
-        # return Response(serializer.data)
-        # 
-        # 
 
 def listCompanyBasicInfo(request):
 	if request.method == "GET":

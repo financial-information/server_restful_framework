@@ -98,10 +98,19 @@ WSGI_APPLICATION = 'server_restful_framework.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # 数据库引擎
-        'NAME':'7stars',
-        'USER':'root',
-        'PASSWORD':'123456',
+# <<<<<<< HEAD
+#         'NAME':'7stars',
+#         'USER':'root',
+#         'PASSWORD':'123456',
         
+# =======
+#         'HOST':'47.111.29.26',
+#         'PORT':3306,
+#         'NAME':'sevenstar',
+#         'USER':'sevenstar',
+#         'PASSWORD':'yal123456',
+
+# >>>>>>> bec312f28291c557b32526798bc6a86c07c14bb5
     }
 }
 
