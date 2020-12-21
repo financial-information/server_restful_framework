@@ -23,5 +23,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api-jwt-auth/', obtain_jwt_token, name='authorizations'),
     path('company_database/', include('company_database.urls')),
-    path('users/', include('users.urls'))
+    path('users/', include('users.urls')),
+    path('active_data/', include('active_data.urls'))
 ]

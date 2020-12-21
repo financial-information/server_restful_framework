@@ -80,7 +80,7 @@ def listCompanyBasicInfo(request):
 
 # 数据所在位置
 # 根目录（注意：将此处路径修改为数据存放位置）
-BASIC_URL = "C:/Users/黑子/Desktop/大三/金融信息系统/"
+BASIC_URL = "C:/Users/user/Documents/Tencent Files/540269559/FileRecv/static/"
 # 公司基本信息
 COMPANY_BASIC_DATA_URL = BASIC_URL+"全部AB股公司基本信息.xls"
 # 年报数据
