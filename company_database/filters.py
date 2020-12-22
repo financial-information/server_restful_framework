@@ -15,3 +15,5 @@ class CompanyBasicInformationFilter(filters.FilterSet):
 	#注册时间
 	min_time = filters.NumberFilter(field_name="found_date", lookup_expr='gte')
 	max_time = filters.NumberFilter(field_name="found_date", lookup_expr='lte')
+	#id
+	id = filters.NumberFilter(field_name="id")

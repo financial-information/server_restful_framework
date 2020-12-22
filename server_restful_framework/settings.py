@@ -25,7 +25,7 @@ SECRET_KEY = 'eo0-u1+1x$t_!+b05ur!m)cl5696b@5hji4n&28j1_s(8^$ro2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -69,6 +69,7 @@ OPEN_URLS = ['/users/login/','/api-jwt-auth/','/users/register/',
             '/company_database/company_finance_data/',]
 # 默认接口
 LOGIN_URL = "../../users/login"
+# LOGIN_URL ="/api-jwt-auth/"
 
 ROOT_URLCONF = 'server_restful_framework.urls'
 
@@ -96,13 +97,24 @@ WSGI_APPLICATION = 'server_restful_framework.wsgi.application'
 
 DATABASES = {
     'default': {
+        #tyy 
         'ENGINE': 'django.db.backends.mysql', # 数据库引擎
-        'HOST':'47.111.29.26',
+        'HOST':'localhost',
         'PORT':3306,
-        'NAME':'sevenstar',
-        'USER':'sevenstar',
-        'PASSWORD':'yal123456',
-
+        'NAME':'sevenstars1',
+        'USER':'root',
+        'PASSWORD':'',
+        #yz
+#         'NAME':'7stars',
+#         'USER':'root',
+#         'PASSWORD':'123456',
+        
+         #yal
+        # 'HOST':'47.111.29.26',
+        # 'PORT':3306,
+        # 'NAME':'sevenstar',
+        # 'USER':'sevenstar',
+        # 'PASSWORD':'yal123456',
     }
 }
 
@@ -131,7 +143,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 

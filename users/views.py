@@ -28,6 +28,9 @@ from rest_framework.pagination import LimitOffsetPagination
 # 引入模型
 from users.models import UserProfile,UserCollection,UserHistory
 
+# 分页
+from rest_framework.pagination import LimitOffsetPagination
+
 class UserProfileSerializerViewSet(viewsets.ModelViewSet):
 	queryset = UserProfile.objects.all()
 	serializer_class = UserProfileSerializer
