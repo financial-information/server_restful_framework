@@ -22,7 +22,7 @@ from users.serializers import UserProfileSerializer,UserHistorySerializer,UserCo
 from django.db import connection
 # 过滤器模块和自定义过滤类
 from django_filters.rest_framework import DjangoFilterBackend
-from users.filters import UserHistoryFilter,UserCollectionFilter
+from users.filters import UserHistoryFilter,UserCollectionFilter,UserInfoFilter
 # 分页
 from rest_framework.pagination import LimitOffsetPagination
 # 引入模型
@@ -31,8 +31,10 @@ from users.models import UserProfile,UserCollection,UserHistory
 class UserProfileSerializerViewSet(viewsets.ModelViewSet):
 	queryset = UserProfile.objects.all()
 	serializer_class = UserProfileSerializer
+	filter_class = UserInfoFilter
 	# 分页
 	pagination_class = LimitOffsetPagination
+
 
 
 class UserHistoryViewSet(viewsets.ModelViewSet):
@@ -145,6 +147,7 @@ def getHotCompanyInfo(request):
 
 def deleteHistory(request):
 	deleteArray = request.POST['deleteArray']
+	deleteArray = deleteArray.split(",")
 	cursor = connection.cursor()
 	for item in deleteArray:
 		try:
@@ -160,6 +163,7 @@ def deleteHistory(request):
 
 def deleteCollection(request):
 	deleteArray = request.POST['deleteArray']
+	deleteArray = deleteArray.split(",")
 	cursor = connection.cursor()
 	for item in deleteArray:
 		try:

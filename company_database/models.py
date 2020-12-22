@@ -12,7 +12,7 @@ class CompanyBasicInformation(models.Model):
   company_name = models.CharField(max_length = 100)
   found_date = models.CharField(max_length=20)
   business_code = models.CharField(max_length = 20)
-  registered_capital = models.CharField(max_length = 20)
+  registered_capital = models.FloatField()
   legal_representative = models.CharField(max_length = 50)
   phone = models.CharField(max_length = 50)
   registered_address = models.CharField(max_length = 200)
