@@ -69,10 +69,9 @@ def listCompanyBasicInfo(request):
 # 数据所在位置
 # 根目录（注意：将此处路径修改为数据存放位置）
 # <<<<<<< HEAD
-BASIC_URL = "D:/static/"
+BASIC_URL = "C:/Users/黑子/Desktop/大三/金融信息系统/"
 # =======
 # BASIC_URL = "C:/Users/user/Documents/Tencent Files/540269559/FileRecv/static/"
-# >>>>>>> 0e9d10d8ad4e037866ccdae8f7ffafb6812fbcd4
 # 公司基本信息
 COMPANY_BASIC_DATA_URL = BASIC_URL+"全部AB股公司基本信息.xls"
 # 年报数据
@@ -230,6 +229,13 @@ def saveFinanceData(file_name):
 		cfd.forecast_cash_flow = checkCondition(items[104])
 		cfd.forecast_total_profit = checkCondition(items[105])
 		cfd.forecast_operating_profit = checkCondition(items[106])
+		cfd.operating_profit_total = connectStr(items[107:113])
+		cfd.cash_ratio = connectStr(items[113:119])
+		cfd.cash_flow = connectStr(items[119:125])
+		cfd.inventory_turnover_days = connectStr(items[125:131])
+		cfd.current_assets_turnover_days = connectStr(items[131:137])
+		cfd.sales_outstanding_turnover_days = connectStr(items[137:143])
+		cfd.shareholders_equity_ratio = connectStr(items[143:149])
 		try:
 			cfd.save()
 		except BaseException as reason:

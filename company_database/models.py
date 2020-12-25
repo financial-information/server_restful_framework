@@ -27,7 +27,7 @@ class CompanyBasicInformation(models.Model):
   class Meta:
         ordering = ('id', 'credit_code')
 
-
+# 公司年报
 class CompanyFinanceData(models.Model):
   id = models.AutoField(primary_key = True)
   stock_code = models.CharField(max_length = 20)
@@ -58,6 +58,13 @@ class CompanyFinanceData(models.Model):
   forecast_total_profit = models.CharField(max_length = 50,null=True)
   forecast_operating_profit = models.CharField(max_length = 50,null=True)
   deleted = models.IntegerField(default= 0)
+  operating_profit_total = models.CharField(max_length = 200,null = True)
+  cash_ratio = models.CharField(max_length = 200,null = True)
+  cash_flow = models.CharField(max_length = 200,null = True)
+  inventory_turnover_days = models.CharField(max_length = 200,null = True)
+  current_assets_turnover_days = models.CharField(max_length = 200,null = True)
+  sales_outstanding_turnover_days = models.CharField(max_length = 200,null = True)
+  shareholders_equity_ratio = models.CharField(max_length = 200,null = True)
 
   class Meta:
       ordering = ('id','stock_code')
