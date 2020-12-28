@@ -66,7 +66,7 @@ def listCompanyBasicInfo(request):
 
 # =============================静态数据存入数据库 ===========================================
 
-# 数据所在位置
+# 数据所在位置r
 # 根目录（注意：将此处路径修改为数据存放位置）
 # <<<<<<< HEAD
 BASIC_URL = "C:/Users/黑子/Desktop/大三/金融信息系统/"
@@ -236,6 +236,9 @@ def saveFinanceData(file_name):
 		cfd.current_assets_turnover_days = connectStr(items[131:137])
 		cfd.sales_outstanding_turnover_days = connectStr(items[137:143])
 		cfd.shareholders_equity_ratio = connectStr(items[143:149])
+		cfd.beta = checkCondition(items[149])
+		cfd.annualized_rate_return = checkCondition(items[150])
+		cfd.annualized_volatility = checkCondition(items[151])
 		try:
 			cfd.save()
 		except BaseException as reason:

@@ -12,8 +12,7 @@ from rest_framework.schemas import get_schema_view
 from company_database.views import *
 
 from company_database import views
-# rest framework 文档接口
-from rest_framework.documentation import include_docs_urls
+
 # 权限
 from django.contrib.auth.decorators import login_required
 
@@ -25,7 +24,7 @@ urlpatterns =[
 	path('saveCompanyFinanceData/',views.saveCompanyFinanceData),
 	path('saveStockType/',views.saveStockType),
 	path('saveIndustryType/',views.saveIndustryType),
-	path('docs/', include_docs_urls(title='说明文档')),
+
 ]
 
 urlpatterns += router.urls

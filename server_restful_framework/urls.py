@@ -17,6 +17,24 @@ from django.contrib import admin
 from django.urls import path, include
 # jwt_token验证
 from rest_framework_jwt.views import obtain_jwt_token
+# # rest framework 文档接口
+# from rest_framework.documentation import include_docs_urls
+# 
+# 引入 swagger文档
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+schema_view = get_schema_view(
+    openapi.Info(
+        title="测试项目API",
+        default_version='v1.0',
+        description="测试工程接口文档",
+        terms_of_service="https://www.baidu.com",
+        contact=openapi.Contact(email="baidu@163.com"),
+        license=openapi.License(name="BSD License"),
+    ),
+    public=True,
+)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,5 +42,8 @@ urlpatterns = [
     path('api-jwt-auth/', obtain_jwt_token, name='authorizations'),
     path('company_database/', include('company_database.urls')),
     path('users/', include('users.urls')),
-    path('active_data/', include('active_data.urls'))
+    path('active_data/', include('active_data.urls')),
+    # path('^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    # path('swagger', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    # path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]

@@ -65,6 +65,9 @@ class CompanyFinanceData(models.Model):
   current_assets_turnover_days = models.CharField(max_length = 200,null = True)
   sales_outstanding_turnover_days = models.CharField(max_length = 200,null = True)
   shareholders_equity_ratio = models.CharField(max_length = 200,null = True)
+  beta = models.CharField(max_length = 50,null = True)
+  annualized_rate_return = models.CharField(max_length = 50,null = True)
+  annualized_volatility = models.CharField(max_length = 50,null = True)
 
   class Meta:
       ordering = ('id','stock_code')

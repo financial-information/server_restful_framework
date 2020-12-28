@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     'users',
     # 安全过滤
     'coffee',
+     # swagger自动生成接口文档
+    'drf_yasg',
 ]
 # django自带用户表的扩展
 AUTH_USER_MODEL="users.UserProfile"
